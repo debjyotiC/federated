@@ -151,6 +151,10 @@ class AnonymousTuple(object):
           tuple(self._name_to_index.items())))
     return self._hash
 
+  def _asdict(self):
+    """Returns an OrderedDict which maps field names to their values."""
+    return to_odict(self)
+
 
 def to_elements(an_anonymous_tuple):
   """Retrieves the list of (name, value) pairs from an anonymous tuple.
@@ -197,7 +201,7 @@ def to_odict(anon_tuple):
   for name, _ in elements:
     if name is None:
       raise ValueError('Can\'t convert an AnonymousTuple with unnamed '
-                       'entries to an OrderedDict')
+                       'entries to an OrderedDict:\n' + str(anon_tuple))
   return collections.OrderedDict(elements)
 
 

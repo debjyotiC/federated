@@ -166,6 +166,8 @@ def is_named_tuple(value):
     True iff `value` can be considered an instance or type of
     `collections.namedtuple`.
   """
+  if 'AnonymousTuple' in str(type(value)):  # Avoids a circular dependency.
+    return False
   if isinstance(value, type):
     cls = value
   else:
